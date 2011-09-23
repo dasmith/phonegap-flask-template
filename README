@@ -1,0 +1,10 @@
+
+Requires:
+  
+  * [Flask](http://flask.pocoo.org)
+  * Sqlite 
+
+To run:
+	
+		cd server
+		python bffs.py

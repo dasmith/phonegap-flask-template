@@ -1,0 +1,59 @@
+{# 
+Main pages for BFFS application
+	
+#}
+
+
+
+{% extends "base.html" %}
+{% block head %}
+{{ super() }}
+    
+{% endblock head %}
+
+{% block content %}
+{{ super() }}
+
+<div data-role="page" id="login" data-theme="a">
+
+  <div data-role="header" data-position="inline">
+      <h1> 
+		Best Friend First Search
+	   <a href="/login">Login</a> </h1>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="ui-bar-e ui-body" id="messages" data-theme="e">
+          {% for message in messages%}
+           <strong>{{ message }}<strong> <br>
+          {% endfor %}
+        </div>
+
+    {% endif %}
+    {% endwith %} 
+
+Welcome to the Best Friend First Search, {{ user.username }}!
+
+</div>
+
+
+
+{% endblock content %}
+
+{#
+   data-icon
+      search, home, info, alert, check, arrow-d, warning
+      custom, prefixes: "ui-icon-" to it
+
+     data-role 
+      button [ can be a href, button, input-type=button/submit/reset
+
+      data-theme
+       a - black
+       b = blue
+       c  - offwhite
+       d - white 
+       e - orange
+
+#}

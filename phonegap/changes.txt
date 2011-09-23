@@ -1,0 +1,82 @@
+-------------------
+ANDROID
+-------------------
+Bryce Curtis (7):
+      Make sure we load the correct resource id for plugins.xml.
+      Shouldn't return error on first call.  This prevents successful invocation, which prevents deviceready from firing.
+      Use the same database based upon application context for each html page loaded as part of this app.
+      Replace deprecated call to activityStop.
+      Remove deprecated addService() method.  The new way to register a plugin is to include it in res/xml/plugins.xml.
+      Issue #154: Propagate existing parameters when starting new DroidGap activity.
+      Issue #153:  Display default value in prompt().
+
+Dave Johnson (1):
+      Fix example to not include the min.js that is non-existent
+
+Don Coleman (2):
+      write error to log when plugins.xml is missing
+      remove comment from xml declaration
+
+Joe Bowser (1):
+      Minor change to Android Manifest for Android 3.2 to force it out of Compatibltiy Mode
+
+macdonst (8):
+      Issue #146: File API - File::writeAsText not in the API, remove
+      Remove deprecated Network.isReachable (use the Network Information API instead)
+      Issue #149: Deprecate support for Android 1.X devices
+      Issue #151: Remove minification of phonegap.*.js file
+      Issue #156: Camera.DestinationType.FILE_URI on Android not conforming to API Spec
+      Upping version to 1.0.0rc2
+      Handle content:// uri's in resolveLocalFileSystemURI
+      Upping version to 1.0.0rc2
+
+
+-------------------
+iOS
+-------------------
+Becky Gibson (3):
+      refs #138 - do not create tmp directory
+      fixes #162 - better accessibility for timed audio
+      refs #6, #154, #152 - pic.type, reverse domain name, deprecation
+
+Shazron Abdullah (9):
+      Created PDFs of the Readme and ReleaseNotes for the DMG package
+      Formatted LICENSE to be < 80 columns (for PDF generation)
+      Added LICENSE to the end of the Readme.PDF
+      Removed redundant "Installer" from "PhoneGapInstaller.pkg" because... it's self evident
+      Added top border, fixed PhoneGap typo
+      Improved the docs for the PDF, as well as inserted the VERSION in the PDFs and Installer.
+      Added upgrading note.
+      New PhoneGap.plist options:  AutoHideSplashScreen (bool=true), ShowSplashScreenSpinner (bool=true).     If AutoHideSplashScreen is false, you can control hiding the splash screen in JavaScript by calling navigator.splashscreen.hide().     Fixed splash screen not showing on iPhone.
+      Used a sdk helper macro to determine Portrait orientation
+
+shazron (12):
+      Fixes issue #167 Generated (by script) Xcode 3 template file fails in Xcode 4
+      Fixes #165 Remove minification of phonegap.*.js file
+      Fixes #164 Add phonegap version inside the JavaScript file itself
+      Fixes #166 Create uninstaller for PhoneGapInstaller
+      Moved output of installer .pkg and uninstaller .app into a dist folder
+      Renamed Installer docs introduction.html to releasenotes.html
+      Copy ReleaseNotes.html to dist package, and create DMG file
+      Fixes #171 remove UIColor-Expanded.*
+      Annotated the splash images so its obvious which one is loaded (for testing).
+      FIxes #168 Warning in Xcode 3 project that you haven't added phonegap.*.js, warning never goes away
+      Updated installer docs for 1.0.0rc2
+      Incremented VERSION to 1.0.0rc2
+
+
+-------------------
+BlackBerry
+-------------------
+Fil Maj (1):
+      fix (?) for #30, might be some namespacing shizz goin on
+
+Michael Brooks (1):
+      Version 1.0.0rc2
+
+-------------------
+webOS
+-------------------
+Herm Wong (2):
+      add the thumbs.js lib to the repo
+      added version file & change log

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block head %}
+{{ super() }}
+{% endblock head %}
+
+{% block content %}
+{{ super() }}
+
+<div data-role="page" id="login" data-theme="a">
+
+  <div data-role="header" data-position="inline">
+      <h1> Login </h1>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="ui-bar-e ui-body" id="messages" data-theme="e">
+          {% for message in messages%}
+           <strong>{{ message }}<strong> <br>
+          {% endfor %}
+        </div>
+
+    {% endif %}
+    {% endwith %} 
+
+    <script>
+
+		// This adds context to the form right when it is submitted
+		$('#user-login-submit').click(function () {
+			if (typeof geoData.coords != 'undefined') {
+		      $("#form-latitude").val(geoData.coords.latitude);	
+		      $("#form-longitude").val(geoData.coords.longitude);	
+			}
+			var submitDate = new Date().toUTCString();
+			if (typeof geoData.timestamp != 'undefined') {
+				submitDate = new Date(geoData.timestamp).toUTCString();
+			}
+            $("#form-timestamp").val(submitDate);	
+          });
+
+	</script>
+
+    <form action="/login/" data-ajax="false" id="user-login-form" method="POST">
+
+        <input type="hidden" id="form-latitude" name="latitude" value="">
+        <input type="hidden" id="form-longitude" name="longitude" value="">
+        <input type="hidden" id="form-timestamp" name="timestamp" value="">
+
+    <!-- goal entry -->
+	<div class="ui-body ui-body-b">
+    <div data-role="fieldcontain">
+        <label for="user-email">Email:</label>
+        <input type="text" name="email" id="user-email"/>
+    </div>
+    <div data-role="fieldcontain">
+      <label for="user-password">Password:</label>
+        <input type="password" name="password" id="user-password"/>
+    </div>
+      <fieldset>
+        <button type="submit" data-theme="a" id="user-login-submit">Login</button>
+      </fieldset>
+      </div>
+
+    </form>
+
+  </div>
+
+
+{% endblock content %}
+

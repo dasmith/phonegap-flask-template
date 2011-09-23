@@ -1,0 +1,85 @@
+{# This is inherited by all webpages #}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Best Friend Finder {% block title %}{% endblock %}</title>
+
+	<meta charset="utf-8" />
+	{% block head %}
+    <script src="{{ url_for('static', filename='js/phonegap.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/modernizr.custom.js')}}"></script>
+    <script src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+    <script src="http://maps.google.com/maps?file=api&v=2&key=[APIKEY]" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='js/bffs.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.mobile-1.0b3.min.js')}}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.mobile-1.0b3.min.css') }}">
+    <script type="text/javascript">
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
+		    var geoWatchId = null;
+	        var geoData = {};
+	        var geoLastData = null;
+
+	        /* desktop geocoding */
+	        if (Modernizr.geolocation) {
+	            console.debug("Initializing Desktop GeoLocation");
+	            geoWatchId = navigator.geolocation.watchPosition(onSuccess, onError);
+	        } 
+
+
+	        // waits for PhoneGap to load
+	        $(document).ready(function() {
+	            console.debug("jquery ready");
+
+	            $(document).bind("deviceready", function() {
+	              console.debug("phonegap ready");
+	              // check location every 3 seconds
+	              var options = { frequency: 30000 };
+	              window.setInterval( function(i) { 
+	                if (typeof geoData.coords != 'undefined' && typeof geoData.coords.latitude != 'undefined') { updateContext(); }
+	                else { console.debug("Would have updated context if latitude defined"); }
+	              }, 10000);
+	              geoWatchId = navigator.geolocation.watchPosition(onSuccess, onError, options);
+	            });
+	        });
+
+	        function updateContext() {
+	          // sends the trace to the server
+	          $.getJSON($SCRIPT_ROOT + "/trace", {
+	             latitude: geoData.coords.latitude,
+	             longitude: geoData.coords.longitude,
+	             altitude: geoData.coords.altitude,
+	             altitudeAccuracy: geoData.coords.altitudeAccuracy,
+	             heading: geoData.coords.heading,
+	             speed: geoData.coords.speed,
+	             accuracy: geoData.coords.accuracy,
+	             timestamp: new Date().toUTCString(),
+	             //timestamp: (typeof geoData.timestamp == 'undefined' ? new Date().toUTCString() : new Date(geoData.timestamp)).toUTCString(),
+	             session: '000001'
+	             }, function(data) { console.debug("Updated Context from /trace/"+data);  
+	             $("#geoLoc").html("<b>test</b>");
+	             });
+	        }
+
+	        function onSuccess(position) {
+	          geoData = position;
+	          console.debug("latitude"+geoData.coords.latitude);
+	          updateContext();
+
+	          $("#geoLoc").text('Latitude' + position.coords.latitude + '<br>'
+	                       + 'Longitude' + position.coords.longitude + '<br>'
+	                       + 'Altitude' + position.coords.altitude+ '<br>');
+	        }
+
+	        function onError() {
+	          console.debug('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
+	        }
+
+    </script>
+    {% endblock head %}
+</head>
+<body>
+{% block content %}{% endblock %}
+</body>
+
+</html>
